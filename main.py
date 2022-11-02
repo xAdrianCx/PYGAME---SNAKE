@@ -29,4 +29,5 @@ def run_game():
         snake.draw_snake()
         pygame.display.flip()
 
+
 run_game()
