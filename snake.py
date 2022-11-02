@@ -4,21 +4,16 @@ import pygame
 class Snake():
     """A class that models a snake"""
 
-    # Initialize the snake.
-    def __init_(self, screen, gs):
+    def __init_(self, gs, screen):
         """Initialize snake attributes"""
-        self.screen = screen
-        self.screen_rect = self.screen.get_rect()
         self.gs = gs
+        self.screen = screen
+        self.screen_rect = screen.get_rect()
         self.rect = pygame.Rect(0, 0, self.gs.snake_head, self.gs.snake_head)
+        # Position the snake in the middle of the screen.
         self.rect.centerx = self.screen_rect.centerx
+        self.rect.centery = self.screen_rect.centery
 
-        self.rect.x = self.gs.screen_width
-        self.rect.y = self.gs.snake_height
-
-        # Store snake rect postion as a float number.
-        self.x = float(self.rect.x)
-        self.y = float(self.rect.y)
 
     def update(self):
         """A method that updates the snake position."""
