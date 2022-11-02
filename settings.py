@@ -13,5 +13,6 @@ class Game_Settings():
     snake_head = 20
     snake_body = []
     snake_color = (0, 0, 255)
+    snake_speed = 1
 
 
