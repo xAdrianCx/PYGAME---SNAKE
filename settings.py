@@ -1,6 +1,4 @@
 
-
-
 class Game_Settings():
     """A class that keeps game settings."""
 
@@ -11,8 +9,12 @@ class Game_Settings():
 
     # Snake settings.
     snake_head = 20
-    snake_body = []
+    snake_body = [20]
     snake_color = (0, 0, 255)
-    snake_speed = 1
+    snake_speed = 20
+
+    # Bait settings.
+    bait_size = 20
+    bait_color = (255, 0, 0)
 
 

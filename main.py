@@ -1,13 +1,17 @@
 
 import pygame
+from pygame import time
 from settings import Game_Settings
 from snake import Snake
 
 
 def run_game():
-    """A function t run the game."""
+    """A function to run the game."""
     # Initialize pygame
     pygame.init()
+
+    # Initialize the clock.
+    clock = pygame.time.Clock()
 
     # Initialize Game_Settings.
     gs = Game_Settings()
@@ -26,10 +30,20 @@ def run_game():
             if event.type == pygame.QUIT:
                 pygame.quit()
             elif event.type == pygame.KEYDOWN:
-                if event.key == K_UP:
-                    snake.up_arrow = True
+                if event.key == pygame.K_UP:
+                    snake.key_pressed = pygame.K_UP
+                if event.key == pygame.K_DOWN:
+                    snake.key_pressed = pygame.K_DOWN
+                if event.key == pygame.K_LEFT:
+                    snake.key_pressed = pygame.K_LEFT
+                if event.key == pygame.K_RIGHT:
+                    snake.key_pressed = pygame.K_RIGHT
+
         screen.fill(gs.bg_color)
+        snake.update()
         snake.draw_snake()
+        clock.tick(10)
         pygame.display.flip()
+
 
 run_game()
