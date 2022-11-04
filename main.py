@@ -41,9 +41,9 @@ def run_game():
                     snake.key_pressed = pygame.K_LEFT
                 if event.key == pygame.K_RIGHT:
                     snake.key_pressed = pygame.K_RIGHT
-
+                    bait.update()
         screen.fill(gs.bg_color)
-        bait.update()
+
         bait.draw_bait()
         snake.update()
         snake.draw_snake()
