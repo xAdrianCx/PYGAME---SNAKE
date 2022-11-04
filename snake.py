@@ -11,8 +11,8 @@ class Snake():
         self.screen_rect = screen.get_rect()
         self.rect = pygame.Rect(0, 0, self.gs.snake_head, sum(self.gs.snake_body))
         # Position the snake in the middle of the screen.
-        self.rect.centerx = self.screen_rect.centerx
-        self.rect.centery = self.screen_rect.centery
+        self.rect.centerx = self.screen_rect.centerx + self.gs.snake_head // 2
+        self.rect.centery = self.screen_rect.centery + self.gs.snake_head // 2
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
 
@@ -21,13 +21,13 @@ class Snake():
 
     def update(self):
         """A method that updates the snake position."""
-        if self.key_pressed == pygame.K_UP and self.y >= self.screen_rect.top:
+        if self.key_pressed == pygame.K_UP and self.y >= self.screen_rect.top + self.gs.snake_head:
             self.y -= self.gs.snake_speed
-        if self.key_pressed == pygame.K_DOWN and self.y <= self.screen_rect.bottom:
+        if self.key_pressed == pygame.K_DOWN and self.y <= self.screen_rect.bottom - self.gs.snake_head * 2:
             self.y += self.gs.snake_speed
-        if self.key_pressed == pygame.K_LEFT and self.x >= self.screen_rect.left:
+        if self.key_pressed == pygame.K_LEFT and self.x >= self.screen_rect.left + self.gs.snake_head:
             self.x -= self.gs.snake_speed
-        if self.key_pressed == pygame.K_RIGHT and self.x <= self.screen_rect.right:
+        if self.key_pressed == pygame.K_RIGHT and self.x <= self.screen_rect.right - self.gs.snake_head * 2:
             self.x += self.gs.snake_speed
         self.rect.y = self.y
         self.rect.x = self.x
