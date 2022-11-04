@@ -3,7 +3,7 @@ import pygame
 from pygame import time
 from settings import Game_Settings
 from snake import Snake
-
+from bait import Bait
 
 def run_game():
     """A function to run the game."""
@@ -11,7 +11,7 @@ def run_game():
     pygame.init()
 
     # Initialize the clock.
-    clock = pygame.time.Clock()
+    clock = time.Clock()
 
     # Initialize Game_Settings.
     gs = Game_Settings()
@@ -23,6 +23,9 @@ def run_game():
 
     # Instantiate the snake.
     snake = Snake(gs, screen)
+
+    # Instantiate the bait.
+    bait = Bait(gs, screen)
 
     # Main loop.
     while True:
@@ -40,8 +43,11 @@ def run_game():
                     snake.key_pressed = pygame.K_RIGHT
 
         screen.fill(gs.bg_color)
+        bait.update()
+        bait.draw_bait()
         snake.update()
         snake.draw_snake()
+
         clock.tick(10)
         pygame.display.flip()
 

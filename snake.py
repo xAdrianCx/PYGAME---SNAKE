@@ -9,6 +9,7 @@ class Snake():
         self.gs = gs
         self.screen = screen
         self.screen_rect = screen.get_rect()
+        # Create a rectangle.
         self.rect = pygame.Rect(0, 0, self.gs.snake_head, sum(self.gs.snake_body))
         # Position the snake in the middle of the screen.
         self.rect.centerx = self.screen_rect.centerx + self.gs.snake_head // 2
