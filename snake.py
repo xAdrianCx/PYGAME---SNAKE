@@ -10,7 +10,7 @@ class Snake():
         self.screen = screen
         self.screen_rect = screen.get_rect()
         # Create a rectangle.
-        self.rect = pygame.Rect(0, 0, self.gs.snake_head, sum(self.gs.snake_body))
+        self.rect = pygame.Rect(0, 0, self.gs.snake_head, self.gs.snake_head)
         # Position the snake in the middle of the screen.
         self.rect.centerx = self.screen_rect.centerx + self.gs.snake_head // 2
         self.rect.centery = self.screen_rect.centery + self.gs.snake_head // 2
@@ -32,7 +32,9 @@ class Snake():
             self.x += self.gs.snake_speed
         self.rect.y = self.y
         self.rect.x = self.x
+        self.gs.snake_body.append(self.rect.copy())
+        self.gs.snake_body = self.gs.snake_body[-self.gs.snake_length:]
 
     def draw_snake(self):
         """Draws the snake on the screen"""
-        pygame.draw.rect(self.screen, self.gs.snake_color, self.rect)
+        [pygame.draw.rect(self.screen, self.gs.snake_color, block) for block in self.gs.snake_body]

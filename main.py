@@ -1,9 +1,10 @@
-
 import pygame
 from pygame import time
 from settings import Game_Settings
 from snake import Snake
 from bait import Bait
+import game_functions as gf
+
 
 def run_game():
     """A function to run the game."""
@@ -29,27 +30,9 @@ def run_game():
 
     # Main loop.
     while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP:
-                    snake.key_pressed = pygame.K_UP
-                if event.key == pygame.K_DOWN:
-                    snake.key_pressed = pygame.K_DOWN
-                if event.key == pygame.K_LEFT:
-                    snake.key_pressed = pygame.K_LEFT
-                if event.key == pygame.K_RIGHT:
-                    snake.key_pressed = pygame.K_RIGHT
-                    bait.update()
-        screen.fill(gs.bg_color)
-
-        bait.draw_bait()
-        snake.update()
-        snake.draw_snake()
-
-        clock.tick(10)
-        pygame.display.flip()
+        gf.check_key_pressed(gs, screen, snake, bait)
+        gf.draw_screen(gs, screen, clock, snake, bait)
+        gf.update_snake_length(gs, snake, bait)
 
 
 run_game()
