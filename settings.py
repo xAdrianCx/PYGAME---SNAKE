@@ -1,3 +1,4 @@
+import json
 
 class Game_Settings():
     """A class that keeps game settings."""
@@ -17,5 +18,9 @@ class Game_Settings():
     # Bait settings.
     bait_size = 20
     bait_color = (255, 0, 0)
+
+    # Keep track of the score.
+    score = 0
+    high_score = 0
 
 
