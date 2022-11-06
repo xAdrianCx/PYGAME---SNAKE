@@ -13,10 +13,11 @@ class Bait():
         self.rect = pygame.Rect(0, 0, self.gs.bait_size, self.gs.bait_size)
         self.update(sb)
 
+
     def update(self, sb):
         """Update the position of the bait."""
-        self.rect.x = random.randint(0, (self.screen_rect.right - self.gs.bait_size) / self.gs.bait_size) * self.gs.bait_size
-        self.rect.y = random.randint(sb.rect_background.bottom, (self.screen_rect.bottom - self.gs.bait_size) / self.gs.bait_size) * self.gs.bait_size
+        self.rect.right = random.randint(1, (self.screen_rect.right / self.gs.bait_size)) * self.gs.bait_size
+        self.rect.top = random.randint(sb.rect_background.bottom / 20, (self.screen_rect.bottom - self.gs.bait_size) / self.gs.bait_size) * self.gs.bait_size
 
     def draw_bait(self):
         """Draw the bait to the screen."""

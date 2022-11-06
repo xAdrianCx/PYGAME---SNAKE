@@ -50,9 +50,6 @@ def draw_screen(gs, screen, clock, snake, bait, sb, pnb):
         bait.draw_bait()
         snake.draw_snake()
         snake.update(sb)
-        print(f"Y: {bait.rect.centery}")
-        print(f"X: {bait.rect.centerx}")
-
         clock.tick(gs.game_speed)
         pygame.display.flip()
 
