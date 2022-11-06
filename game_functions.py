@@ -1,4 +1,6 @@
 import pygame
+import os
+import json
 
 
 def check_key_pressed(snake, pnb):
@@ -27,7 +29,7 @@ def check_key_pressed(snake, pnb):
                 pnb.active = True
 
 
-def update_snake_length(gs, snake, bait, sb):
+def update_snake_length(gs, snake, bait, sb, pnb):
     """ If collision, update the snake length."""
     if snake.rect.colliderect(bait.rect):
         gs.snake_length += 1
@@ -36,10 +38,25 @@ def update_snake_length(gs, snake, bait, sb):
         # Increase game speed.
         if sb.score > 0 and sb.score % 500 == 0:
             gs.game_speed += 1
+        if sb.score > sb.highest_score:
+            cwd = os.getcwd()
+            os.chdir(cwd)
+            with open("scoreboard.json", "r+") as file:
+                data = json.load(file)
+                best_player = {}
+                name = pnb.player_name_list[0]
+                high_score = sb.score
+                best_player[name] = high_score
+                data.update(best_player)
+                file.seek(0)
+                json.dump(data, file)
+                sb.high_score_name = name
+                sb.highest_score = high_score
         bait.update(sb)
 
+
 def draw_screen(gs, screen, clock, snake, bait, sb, pnb):
-    """ Draw eveything to screen."""
+    """ Draw everything to screen."""
 
     if len(pnb.player_name_list) <= 0:
         screen.fill(gs.bg_color)
@@ -52,9 +69,3 @@ def draw_screen(gs, screen, clock, snake, bait, sb, pnb):
         snake.update(sb)
         clock.tick(gs.game_speed)
         pygame.display.flip()
-
-
-
-
-
-

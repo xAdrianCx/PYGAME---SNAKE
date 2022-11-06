@@ -2,7 +2,8 @@ import json
 import pygame
 import os
 
-class Player_Name_Box():
+
+class PlayerNameBox:
     """ Store the game stats."""
     def __init__(self, screen):
         """ Initialize the stats."""
@@ -15,7 +16,8 @@ class Player_Name_Box():
         self.width = 200
         self.height = 40
         # Create a box for users to provide their name.
-        self.player_name_box = pygame.Rect(self.screen_rect.right // 2, self.screen_rect.bottom // 2, self.width, self.height)
+        self.player_name_box = pygame.Rect(self.screen_rect.right // 2, self.screen_rect.bottom // 2,
+                                           self.width, self.height)
         # Set an active color for the box(after player clicks into the box).
         self.active_color = pygame.Color(153, 255, 255)
         # Set a passive color of the box.
@@ -23,10 +25,7 @@ class Player_Name_Box():
         # Set an active flag.
         self.active = False
         self.color = None
-        if self.active == True:
-            self.color = self.active_color
-        else:
-            self.color = self.passive_color
+        self.color = self.active_color if self.active else self.passive_color
 
     def draw_player_name_box(self):
         """ Draw the player name box to the screen."""
@@ -37,7 +36,7 @@ class Player_Name_Box():
         pygame.display.flip()
 
 
-class Scoreboard():
+class Scoreboard:
     """ A class to model a scoreboard."""
     def __init__(self, gs, screen):
         self.gs = gs
@@ -47,18 +46,19 @@ class Scoreboard():
         self.score_color = (179, 171, 171)
         self.rect_background = pygame.Rect(0, 0, self.screen_rect.right, 40)
         self.rect_background.top = self.screen_rect.top
-
-    def draw_score(self, pnb):
         cwd = os.getcwd()
         os.chdir(cwd)
         with open("scoreboard.json", "r+") as data_file:
             data = json.load(data_file)
-        highscore_name = max(data, key=data.get)
-        highest_score = max(data.values())
-        # Create a highscore font object.
-        highscore_msg_font = pygame.font.SysFont("Comic Sans", 25)
-        highscore_msg = f"All Time Highest Score --> {highscore_name.title()}: {highest_score}"
-        highscore_img = highscore_msg_font.render(highscore_msg, True, "BLUE")
+        self.high_score_name = max(data, key=data.get)
+        self.highest_score = max(data.values())
+
+    def draw_score(self, pnb):
+        """ Draw the score to the screen."""
+        # Create a high score font object.
+        high_score_msg_font = pygame.font.SysFont("Comic Sans", 25)
+        high_score_msg = f"All Time Highest Score --> {self.high_score_name.title()}: {self.highest_score}"
+        high_score_img = high_score_msg_font.render(high_score_msg, True, "BLUE")
         # Create a score font object.
         score_msg_font = pygame.font.SysFont("Comic Sans", 25)
         score_msg = f"{pnb.player_name_list[0]}'s Score: {self.score}"
@@ -66,5 +66,4 @@ class Scoreboard():
         # Draw everything to the screen.
         pygame.draw.rect(self.screen, self.score_color, self.rect_background)
         self.screen.blit(score_img, (10, 5))
-        self.screen.blit(highscore_img, ((self.screen_rect.right // 2) - 200, 5))
-
+        self.screen.blit(high_score_img, ((self.screen_rect.right // 2) - 200, 5))
