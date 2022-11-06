@@ -12,26 +12,23 @@ class Snake():
         # Create a rectangle.
         self.rect = pygame.Rect(0, 0, self.gs.snake_head, self.gs.snake_head)
         # Position the snake in the middle of the screen.
-        self.rect.centerx = self.screen_rect.centerx + self.gs.snake_head // 2
-        self.rect.centery = self.screen_rect.centery + self.gs.snake_head // 2
-        self.x = float(self.rect.x)
-        self.y = float(self.rect.y)
+        self.rect.center = (self.screen_rect.centerx - (self.gs.snake_head / 2), self.screen_rect.centery)
+
 
         # Get the pressed key.
         self.key_pressed = None
 
-    def update(self):
+    def update(self, sb):
         """A method that updates the snake position."""
-        if self.key_pressed == pygame.K_UP and self.y >= self.screen_rect.top + self.gs.snake_head:
-            self.y -= self.gs.snake_speed
-        if self.key_pressed == pygame.K_DOWN and self.y <= self.screen_rect.bottom - self.gs.snake_head * 2:
-            self.y += self.gs.snake_speed
-        if self.key_pressed == pygame.K_LEFT and self.x >= self.screen_rect.left + self.gs.snake_head:
-            self.x -= self.gs.snake_speed
-        if self.key_pressed == pygame.K_RIGHT and self.x <= self.screen_rect.right - self.gs.snake_head * 2:
-            self.x += self.gs.snake_speed
-        self.rect.y = self.y
-        self.rect.x = self.x
+        if self.key_pressed == pygame.K_UP and self.rect.top >= self.screen_rect.top + sb.rect_background.bottom + self.gs.snake_head:
+            self.rect.top -= self.gs.snake_speed
+        if self.key_pressed == pygame.K_DOWN and self.rect.bottom <= self.screen_rect.bottom - self.gs.snake_head:
+            self.rect.bottom += self.gs.snake_speed
+        if self.key_pressed == pygame.K_LEFT and self.rect.left >= self.screen_rect.left + self.gs.snake_head:
+            self.rect.left -= self.gs.snake_speed
+        if self.key_pressed == pygame.K_RIGHT and self.rect.right <= self.screen_rect.right - self.gs.snake_head:
+            self.rect.right += self.gs.snake_speed
+
         self.gs.snake_body.append(self.rect.copy())
         self.gs.snake_body = self.gs.snake_body[-self.gs.snake_length:]
 

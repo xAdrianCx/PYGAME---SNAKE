@@ -1,7 +1,7 @@
 import pygame
 
 
-def check_key_pressed(gs, screen, snake, bait):
+def check_key_pressed(snake, pnb):
     """ Check which key was pressed."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -15,6 +15,16 @@ def check_key_pressed(gs, screen, snake, bait):
                 snake.key_pressed = pygame.K_LEFT
             if event.key == pygame.K_RIGHT:
                 snake.key_pressed = pygame.K_RIGHT
+            if event.key == pygame.K_RETURN:
+                pnb.player_name_list.append(pnb.player_name)
+                pnb.player_name = ""
+            if event.key == pygame.K_BACKSPACE:
+                pnb.player_name = pnb.player_name[:-1]
+            else:
+                pnb.player_name += event.unicode
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if pnb.player_name_box.collidepoint(event.pos):
+                pnb.active = True
 
 
 def update_snake_length(gs, snake, bait, sb):
@@ -26,17 +36,25 @@ def update_snake_length(gs, snake, bait, sb):
         # Increase game speed.
         if sb.score > 0 and sb.score % 500 == 0:
             gs.game_speed += 1
-        bait.update()
+        bait.update(sb)
 
-def draw_screen(gs, screen, clock, snake, bait, sb):
+def draw_screen(gs, screen, clock, snake, bait, sb, pnb):
     """ Draw eveything to screen."""
-    screen.fill(gs.bg_color)
-    sb.draw_score()
-    bait.draw_bait()
-    snake.draw_snake()
-    snake.update()
-    clock.tick(gs.game_speed)
-    pygame.display.flip()
+
+    if len(pnb.player_name_list) <= 0:
+        screen.fill(gs.bg_color)
+        pnb.draw_player_name_box()
+    else:
+        screen.fill(gs.bg_color)
+        sb.draw_score(pnb)
+        bait.draw_bait()
+        snake.draw_snake()
+        snake.update(sb)
+        print(f"Y: {bait.rect.centery}")
+        print(f"X: {bait.rect.centerx}")
+
+        clock.tick(gs.game_speed)
+        pygame.display.flip()
 
 
 

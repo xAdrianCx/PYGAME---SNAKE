@@ -1,11 +1,11 @@
-import json
+
 
 class Game_Settings():
     """A class that keeps game settings."""
 
     # Screen settings.
     screen_width = 1600
-    scrren_height = 800
+    scrren_height = 900
     bg_color = (0, 255, 0)
 
     # Snake settings.
