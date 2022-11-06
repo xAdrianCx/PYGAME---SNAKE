@@ -31,11 +31,10 @@ def update_snake_length(gs, snake, bait, sb):
 def draw_screen(gs, screen, clock, snake, bait, sb):
     """ Draw eveything to screen."""
     screen.fill(gs.bg_color)
+    sb.draw_score()
     bait.draw_bait()
     snake.draw_snake()
     snake.update()
-    print(gs.game_speed)
-    print(sb.score)
     clock.tick(gs.game_speed)
     pygame.display.flip()
 
