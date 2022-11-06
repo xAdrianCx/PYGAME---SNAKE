@@ -25,6 +25,14 @@ def check_key_pressed(snake, pnb):
             else:
                 pnb.player_name += event.unicode
 
+
+def check_snake_screen_collisions(snake, sb):
+    if (snake.rect.top == sb.rect_background.bottom) or \
+            (snake.screen_rect.bottom == snake.rect.bottom) or (snake.screen_rect.right == snake.rect.right) or \
+            (snake.screen_rect.left == snake.rect.left):
+        return True
+
+
 def update_snake_length(gs, snake, bait, sb, pnb):
     """ If collision, update the snake length."""
     if snake.rect.colliderect(bait.rect):
@@ -63,5 +71,8 @@ def draw_screen(gs, screen, clock, snake, bait, sb, pnb):
         bait.draw_bait()
         snake.draw_snake()
         snake.update(sb)
+        print(check_snake_screen_collisions(snake, sb))
+        print(snake.rect.top)
+        print(sb.rect_background.bottom)
         clock.tick(gs.game_speed)
         pygame.display.flip()

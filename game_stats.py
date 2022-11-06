@@ -17,7 +17,7 @@ class PlayerNameBox:
         self.height = 40
         # Create a box for users to provide their name.
         self.player_name_box = pygame.Rect((self.screen_rect.right // 3),
-                                           (self.screen_rect.bottom // self.screen_rect.bottom + self.height),
+                                           (self.screen_rect.bottom // 3),
                                            self.width // 2, self.height)
         # Set an active color for the box(after player clicks into the box).
         self.color = pygame.Color(204, 102, 0)
@@ -29,10 +29,10 @@ class PlayerNameBox:
         """ Draw the player name box to the screen."""
         pygame.draw.rect(self.screen, self.color, self.player_name_box)
         text_surface = self.name_box_font.render(self.player_name, True, (255, 255, 255))
-        text_on_top = self.text.render("Type your name and press 'Enter'", True, (255, 255, 255))
+        text_on_top = self.text.render("Type your name and press 'Enter' to start the game", True, (255, 255, 255))
         self.screen.blit(text_on_top, (self.player_name_box.x + 5, self.player_name_box.y - 30))
         self.screen.blit(text_surface, (self.player_name_box.x + 5, self.player_name_box.y + 0))
-        self.player_name_box.w = max(300, text_surface.get_width() + 10)
+        self.player_name_box.w = max(400, text_surface.get_width() + 10)
         pygame.display.flip()
 
 
@@ -61,7 +61,10 @@ class Scoreboard:
         high_score_img = high_score_msg_font.render(high_score_msg, True, "BLUE")
         # Create a score font object.
         score_msg_font = pygame.font.SysFont("Comic Sans", 25)
-        score_msg = f"{pnb.player_name_list[0]}'s Score: {self.score}"
+        if pnb.player_name_list[0] == "":
+            score_msg = f"NoName's Score: {self.score}"
+        else:
+            score_msg = f"{pnb.player_name_list[0]}'s Score: {self.score}"
         score_img = score_msg_font.render(score_msg, True, "BLUE")
         # Draw everything to the screen.
         pygame.draw.rect(self.screen, self.score_color, self.rect_background)
