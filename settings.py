@@ -6,7 +6,7 @@ class GameSettings:
     # Screen settings.
     screen_width = 1600
     screen_height = 900
-    bg_color = (0, 255, 0)
+    bg_color = (0, 153, 76)
 
     # Snake settings.
     snake_length = 1

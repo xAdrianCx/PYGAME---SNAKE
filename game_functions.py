@@ -24,10 +24,6 @@ def check_key_pressed(snake, pnb):
                 pnb.player_name = pnb.player_name[:-1]
             else:
                 pnb.player_name += event.unicode
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            if pnb.player_name_box.collidepoint(event.pos):
-                pnb.active = True
-
 
 def update_snake_length(gs, snake, bait, sb, pnb):
     """ If collision, update the snake length."""

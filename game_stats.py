@@ -16,23 +16,23 @@ class PlayerNameBox:
         self.width = 200
         self.height = 40
         # Create a box for users to provide their name.
-        self.player_name_box = pygame.Rect(self.screen_rect.right // 2, self.screen_rect.bottom // 2,
-                                           self.width, self.height)
+        self.player_name_box = pygame.Rect((self.screen_rect.right // 3),
+                                           (self.screen_rect.bottom // self.screen_rect.bottom + self.height),
+                                           self.width // 2, self.height)
         # Set an active color for the box(after player clicks into the box).
-        self.active_color = pygame.Color(153, 255, 255)
-        # Set a passive color of the box.
-        self.passive_color = pygame.Color(102, 0, 0)
-        # Set an active flag.
-        self.active = False
-        self.color = None
-        self.color = self.active_color if self.active else self.passive_color
+        self.color = pygame.Color(204, 102, 0)
+
+        # Create a text on top of the player_name_box.
+        self.text = pygame.font.SysFont("Comic Sans", 15)
 
     def draw_player_name_box(self):
         """ Draw the player name box to the screen."""
         pygame.draw.rect(self.screen, self.color, self.player_name_box)
         text_surface = self.name_box_font.render(self.player_name, True, (255, 255, 255))
-        self.screen.blit(text_surface, (self.player_name_box.x + 5, self.player_name_box.y + 5))
-        self.player_name_box.w = max(100, text_surface.get_width() + 10)
+        text_on_top = self.text.render("Type your name and press 'Enter'", True, (255, 255, 255))
+        self.screen.blit(text_on_top, (self.player_name_box.x + 5, self.player_name_box.y - 30))
+        self.screen.blit(text_surface, (self.player_name_box.x + 5, self.player_name_box.y + 0))
+        self.player_name_box.w = max(300, text_surface.get_width() + 10)
         pygame.display.flip()
 
 
