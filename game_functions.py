@@ -17,19 +17,26 @@ def check_key_pressed(gs, screen, snake, bait):
                 snake.key_pressed = pygame.K_RIGHT
 
 
-def update_snake_length(gs, snake, bait):
+def update_snake_length(gs, snake, bait, sb):
     """ If collision, update the snake length."""
     if snake.rect.colliderect(bait.rect):
         gs.snake_length += 1
+        # Increase the score.
+        sb.score += 50
+        # Increase game speed.
+        if sb.score > 0 and sb.score % 500 == 0:
+            gs.game_speed += 1
         bait.update()
 
-def draw_screen(gs, screen, clock, snake, bait):
+def draw_screen(gs, screen, clock, snake, bait, sb):
     """ Draw eveything to screen."""
     screen.fill(gs.bg_color)
     bait.draw_bait()
     snake.draw_snake()
     snake.update()
-    clock.tick(10)
+    print(gs.game_speed)
+    print(sb.score)
+    clock.tick(gs.game_speed)
     pygame.display.flip()
 
 

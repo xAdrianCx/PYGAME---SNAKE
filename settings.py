@@ -19,8 +19,5 @@ class Game_Settings():
     bait_size = 20
     bait_color = (255, 0, 0)
 
-    # Keep track of the score.
-    score = 0
-    high_score = 0
-
-
+    # Increase game speed.
+    game_speed = 20
