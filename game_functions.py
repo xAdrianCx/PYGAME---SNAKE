@@ -18,8 +18,10 @@ def check_key_pressed(gs, screen, snake, pnb):
             if event.key == pygame.K_RIGHT:
                 snake.key_pressed = pygame.K_RIGHT
             if event.key == pygame.K_p:
-                ask_for_username(gs, screen, pnb)
-
+                # To be continued
+                while True:
+                    screen.fill((255, 0, 0))
+                    pygame.display.flip()
 
             if event.key == pygame.K_RETURN:
                 pnb.player_name_list.append(pnb.player_name)
@@ -69,24 +71,20 @@ def update_snake_length(gs, snake, bait, sb, pnb):
 
 def ask_for_username(gs, screen, pnb):
     """ Prompt for a username to be able to track the score."""
-    gs.game_running = False
-    if len(pnb.player_name_list) <= 0:
-        screen.fill(gs.bg_color)
-        pnb.draw_player_name_box()
-        pygame.display.flip()
+    screen.fill(gs.bg_color)
+    pnb.draw_player_name_box()
+    pygame.display.flip()
+    if len(pnb.player_name_list) > 0:
+        gs.game_running = True
+        gs.game_active = False
 
 
 def draw_screen(gs, screen, clock, snake, bait, sb, pnb):
     """ Draw everything to screen."""
-    if len(pnb.player_name_list) <= 0:
-        screen.fill(gs.bg_color)
-        pnb.draw_player_name_box()
-        pygame.display.flip()
-    else:
-        screen.fill(gs.bg_color)
-        sb.draw_score(pnb)
-        bait.draw_bait()
-        snake.draw_snake()
-        snake.update(sb)
-        clock.tick(gs.game_speed)
-        pygame.display.flip()
+    screen.fill(gs.bg_color)
+    sb.draw_score(pnb)
+    bait.draw_bait()
+    snake.draw_snake()
+    snake.update(sb)
+    clock.tick(gs.game_speed)
+    pygame.display.flip()
