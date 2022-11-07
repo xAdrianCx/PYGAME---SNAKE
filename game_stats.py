@@ -61,7 +61,7 @@ class Scoreboard:
         high_score_img = high_score_msg_font.render(high_score_msg, True, "BLUE")
         # Create a score font object.
         score_msg_font = pygame.font.SysFont("Comic Sans", 25)
-        if pnb.player_name_list[0] == "":
+        if len(pnb.player_name_list) == 0:
             score_msg = f"NoName's Score: {self.score}"
         else:
             score_msg = f"{pnb.player_name_list[0]}'s Score: {self.score}"

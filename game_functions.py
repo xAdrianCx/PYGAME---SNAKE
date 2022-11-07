@@ -3,7 +3,7 @@ import os
 import json
 
 
-def check_key_pressed(snake, pnb):
+def check_key_pressed(gs, screen, snake, pnb):
     """ Check which key was pressed."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -17,6 +17,10 @@ def check_key_pressed(snake, pnb):
                 snake.key_pressed = pygame.K_LEFT
             if event.key == pygame.K_RIGHT:
                 snake.key_pressed = pygame.K_RIGHT
+            if event.key == pygame.K_p:
+                ask_for_username(gs, screen, pnb)
+
+
             if event.key == pygame.K_RETURN:
                 pnb.player_name_list.append(pnb.player_name)
                 pnb.player_name = ""
@@ -27,9 +31,13 @@ def check_key_pressed(snake, pnb):
 
 
 def check_snake_screen_collisions(snake, sb):
-    if (snake.rect.top == sb.rect_background.bottom) or \
-            (snake.screen_rect.bottom == snake.rect.bottom) or (snake.screen_rect.right == snake.rect.right) or \
-            (snake.screen_rect.left == snake.rect.left):
+    if snake.rect.top < sb.rect_background.bottom:
+        return True
+    if snake.rect.bottom > snake.screen_rect.bottom:
+        return True
+    elif snake.rect.right > snake.screen_rect.right:
+        return True
+    elif snake.rect.left < snake.screen_rect.left:
         return True
 
 
@@ -59,20 +67,26 @@ def update_snake_length(gs, snake, bait, sb, pnb):
         bait.update(sb)
 
 
-def draw_screen(gs, screen, clock, snake, bait, sb, pnb):
-    """ Draw everything to screen."""
-
+def ask_for_username(gs, screen, pnb):
+    """ Prompt for a username to be able to track the score."""
+    gs.game_running = False
     if len(pnb.player_name_list) <= 0:
         screen.fill(gs.bg_color)
         pnb.draw_player_name_box()
+        pygame.display.flip()
+
+
+def draw_screen(gs, screen, clock, snake, bait, sb, pnb):
+    """ Draw everything to screen."""
+    if len(pnb.player_name_list) <= 0:
+        screen.fill(gs.bg_color)
+        pnb.draw_player_name_box()
+        pygame.display.flip()
     else:
         screen.fill(gs.bg_color)
         sb.draw_score(pnb)
         bait.draw_bait()
         snake.draw_snake()
         snake.update(sb)
-        print(check_snake_screen_collisions(snake, sb))
-        print(snake.rect.top)
-        print(sb.rect_background.bottom)
         clock.tick(gs.game_speed)
         pygame.display.flip()

@@ -19,14 +19,13 @@ class Snake:
 
     def update(self, sb):
         """A method that updates the snake position."""
-        if self.key_pressed == pygame.K_UP and self.rect.top >= self.screen_rect.top + \
-                sb.rect_background.bottom + self.gs.snake_head:
+        if self.key_pressed == pygame.K_UP:
             self.rect.top -= self.gs.snake_speed
-        if self.key_pressed == pygame.K_DOWN and self.rect.bottom <= self.screen_rect.bottom - self.gs.snake_head:
+        if self.key_pressed == pygame.K_DOWN:
             self.rect.bottom += self.gs.snake_speed
-        if self.key_pressed == pygame.K_LEFT and self.rect.left >= self.screen_rect.left + self.gs.snake_head:
+        if self.key_pressed == pygame.K_LEFT:
             self.rect.left -= self.gs.snake_speed
-        if self.key_pressed == pygame.K_RIGHT and self.rect.right <= self.screen_rect.right - self.gs.snake_head:
+        if self.key_pressed == pygame.K_RIGHT:
             self.rect.right += self.gs.snake_speed
 
         self.gs.snake_body.append(self.rect.copy())

@@ -36,8 +36,8 @@ def run_game():
     bait = Bait(gs, screen, sb)
 
     # Main loop.
-    while True:
-        gf.check_key_pressed(snake, pnb)
+    while gs.game_running:
+        gf.check_key_pressed(gs, screen, snake, pnb)
         gf.draw_screen(gs, screen, clock, snake, bait, sb, pnb)
         gf.update_snake_length(gs, snake, bait, sb, pnb)
         gf.check_snake_screen_collisions(snake, sb)
