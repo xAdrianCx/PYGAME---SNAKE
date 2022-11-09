@@ -20,6 +20,9 @@ def check_key_pressed(gs, screen, snake, pnb):
             if event.key == pygame.K_p:
                 if gs.game_paused == False:
                     gs.game_paused = True
+                    screen.fill(gs.bg_color)
+                    pnb.draw_player_name_box()
+                    pygame.display.flip()
                 if gs.game_paused == True:
                     gs.game_paused = False
 
@@ -73,7 +76,6 @@ def update_snake_length(gs, snake, bait, sb, pnb):
 
 def ask_for_username(gs, screen, pnb):
     """ Prompt for a username to be able to track the score."""
-    gs.game_paused = True
     screen.fill(gs.bg_color)
     pnb.draw_player_name_box()
     pygame.display.flip()
@@ -88,5 +90,7 @@ def draw_screen(gs, screen, clock, snake, bait, sb, pnb):
     bait.draw_bait()
     snake.draw_snake()
     snake.update(sb)
+    print(f"game_running: {gs.game_running}")
+    print(f"game_running: {gs.game_paused}")
     clock.tick(gs.game_speed)
     pygame.display.flip()

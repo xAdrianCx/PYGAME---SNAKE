@@ -36,18 +36,14 @@ def run_game():
     bait = Bait(gs, screen, sb)
 
     # Main loop.
-    while True:
-        if gs.game_paused:
-            gf.check_key_pressed(gs, screen, snake, pnb)
-            gf.ask_for_username(gs, screen, pnb)
-            pygame.display.flip()
-        if gs.game_running:
-            gf.check_key_pressed(gs, screen, snake, pnb)
-            gf.draw_screen(gs, screen, clock, snake, bait, sb, pnb)
-            gf.update_snake_length(gs, snake, bait, sb, pnb)
-            gf.check_snake_screen_collisions(snake, sb)
-            print(f"game_running: {gs.game_running}")
-            print(f"game_running: {gs.game_paused}")
-
+    while gs.game_paused:
+        gf.check_key_pressed(gs, screen, snake, pnb)
+        gf.ask_for_username(gs, screen, pnb)
+        pygame.display.flip()
+    while gs.game_running:
+        gf.check_key_pressed(gs, screen, snake, pnb)
+        gf.draw_screen(gs, screen, clock, snake, bait, sb, pnb)
+        gf.update_snake_length(gs, snake, bait, sb, pnb)
+        gf.check_snake_screen_collisions(snake, sb)
 
 run_game()
