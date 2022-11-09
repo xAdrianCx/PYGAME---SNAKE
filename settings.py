@@ -21,6 +21,7 @@ class GameSettings:
 
     # Increase game speed.
     game_speed = 20
-    game_active = True
-    game_running = False
+    game_paused = None
+    game_running = None
+
 
