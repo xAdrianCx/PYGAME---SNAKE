@@ -18,15 +18,11 @@ def check_key_pressed(gs, screen, snake, pnb):
             if event.key == pygame.K_RIGHT:
                 snake.key_pressed = pygame.K_RIGHT
             if event.key == pygame.K_p:
-                if gs.game_paused == False:
-                    gs.game_paused = True
-                    screen.fill(gs.bg_color)
-                    pnb.draw_player_name_box()
-                    pygame.display.flip()
-                if gs.game_paused == True:
-                    gs.game_paused = False
-
-
+                gs.game_paused = not gs.game_paused
+                pause_msg_font = pygame.font.SysFont("Comic Sans", 50)
+                pause_msg = "Game Paused..."
+                pause_msg_img = pause_msg_font.render(pause_msg, True, "RED")
+                screen.blit(pause_msg_img, ((gs.screen_width // 3), (gs.screen_height // 2)))
             if event.key == pygame.K_RETURN:
                 pnb.player_name_list.append(pnb.player_name)
                 pnb.player_name = ""
@@ -49,7 +45,8 @@ def check_snake_screen_collisions(snake, sb):
 
 
 def update_snake_length(gs, snake, bait, sb, pnb):
-    """ If collision, update the snake length."""
+    """ A function that detects collisions.
+    Updates the length of snake and creates a new bait at a random position."""
     if snake.rect.colliderect(bait.rect):
         gs.snake_length += 1
         # Increase the score.
@@ -63,7 +60,10 @@ def update_snake_length(gs, snake, bait, sb, pnb):
             with open("scoreboard.json", "r+") as file:
                 data = json.load(file)
                 best_player = {}
-                name = pnb.player_name_list[0]
+                if len(pnb.player_name_list) == 0:
+                    name = "NoName"
+                else:
+                    name = pnb.player_name_list[0]
                 high_score = sb.score
                 best_player[name] = high_score
                 data.update(best_player)
@@ -80,17 +80,9 @@ def ask_for_username(gs, screen, pnb):
     pnb.draw_player_name_box()
     pygame.display.flip()
     if len(pnb.player_name_list) > 0:
-        gs.game_paused = False
         gs.game_running = True
+
 
 def draw_screen(gs, screen, clock, snake, bait, sb, pnb):
     """ Draw everything to screen."""
-    screen.fill(gs.bg_color)
-    sb.draw_score(pnb)
-    bait.draw_bait()
-    snake.draw_snake()
-    snake.update(sb)
-    print(f"game_running: {gs.game_running}")
-    print(f"game_running: {gs.game_paused}")
-    clock.tick(gs.game_speed)
-    pygame.display.flip()
+    pass
