@@ -81,8 +81,3 @@ def ask_for_username(gs, screen, pnb):
     pygame.display.flip()
     if len(pnb.player_name_list) > 0:
         gs.game_running = True
-
-
-def draw_screen(gs, screen, clock, snake, bait, sb, pnb):
-    """ Draw everything to screen."""
-    pass
