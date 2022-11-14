@@ -48,13 +48,22 @@ class Scoreboard:
         self.rect_background.top = self.screen_rect.top
         cwd = os.getcwd()
         os.chdir(cwd)
+        # Get the highest score from the database.
         with open("scoreboard.json", "r+") as data_file:
             data = json.load(data_file)
         self.high_score_name = max(data, key=data.get)
         self.highest_score = max(data.values())
+        # Create the lives.
+        self.snake_lives = pygame.Rect(0, 0, self.gs.snake_head, self.gs.snake_head)
+        self.snake_lives_color = self.gs.snake_color
+        self.snake_lives.right = self.screen_rect.right - 110
+        self.snake_live_list = []
+        for i in range(self.gs.snake_lives):
+            self.snake_live_list.append(self.snake_lives.copy())
 
-    def draw_score(self, pnb):
-        """ Draw the score to the screen."""
+    def draw_stats(self, pnb):
+        """ Draw the score to the screen.
+        Also draws the lives left."""
         # Create a high score font object.
         high_score_msg_font = pygame.font.SysFont("Comic Sans", 25)
         high_score_msg = f"All Time Highest Score --> {self.high_score_name.title()}: {self.highest_score}"
@@ -68,5 +77,6 @@ class Scoreboard:
         score_img = score_msg_font.render(score_msg, True, "BLUE")
         # Draw everything to the screen.
         pygame.draw.rect(self.screen, self.score_color, self.rect_background)
+        [pygame.draw.rect(self.screen, self.snake_lives_color, life) for life in self.snake_live_list]
         self.screen.blit(score_img, (10, 5))
         self.screen.blit(high_score_img, ((self.screen_rect.right // 2) - 200, 5))

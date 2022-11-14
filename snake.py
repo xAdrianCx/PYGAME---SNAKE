@@ -31,7 +31,8 @@ class Snake:
         self.gs.snake_body = self.gs.snake_body[-self.gs.snake_length:]
 
     def reset(self):
-        """ Position the snake in the middle of the screen."""
+        """ Position the snake in the middle of the screen after it hits an edge.
+        Also decrease lives left."""
         self.rect.center = (self.screen_rect.centerx - (self.gs.snake_head / 2), self.screen_rect.centery)
         self.key_pressed = None
 

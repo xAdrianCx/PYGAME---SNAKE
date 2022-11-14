@@ -43,7 +43,7 @@ def run_game():
         if gs.game_running and not gs.game_paused:
             screen.fill(gs.bg_color)
             gf.check_key_pressed(gs, screen, snake, pnb)
-            sb.draw_score(pnb)
+            sb.draw_stats(pnb)
             bait.draw_bait()
             snake.draw_snake()
             gf.check_snake_screen_collisions(snake, sb)
