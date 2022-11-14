@@ -14,14 +14,13 @@ class GameSettings:
     snake_body = []
     snake_color = (0, 0, 255)
     snake_speed = 20
+    snake_lives = 3
 
     # Bait settings.
     bait_size = 20
     bait_color = (255, 0, 0)
 
-    # Increase game speed.
+    # Game settings.
     game_speed = 20
     game_paused = False
     game_running = False
-
-

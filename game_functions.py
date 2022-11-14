@@ -32,20 +32,16 @@ def check_key_pressed(gs, screen, snake, pnb):
                 pnb.player_name += event.unicode
 
 
-def check_snake_screen_collisions(gs, snake, sb):
+def check_snake_screen_collisions(snake, sb):
     """ A function that detects snake-screen borders collisions."""
     if snake.rect.top < sb.rect_background.bottom:
-        gs.game_running = False
-        gs.game_paused = True
+        snake.reset()
     if snake.rect.bottom > snake.screen_rect.bottom:
-        gs.game_running = False
-        gs.game_paused = True
+        snake.reset()
     elif snake.rect.right > snake.screen_rect.right:
-        gs.game_running = False
-        gs.game_paused = True
+        snake.reset()
     elif snake.rect.left < snake.screen_rect.left:
-        gs.game_running = False
-        gs.game_paused = True
+        snake.reset()
 
 
 def update_snake_length(gs, snake, bait, sb, pnb):
