@@ -46,9 +46,9 @@ def run_game():
             sb.draw_score(pnb)
             bait.draw_bait()
             snake.draw_snake()
+            gf.check_snake_screen_collisions(gs, snake, sb)
             snake.update(sb)
             gf.update_snake_length(gs, snake, bait, sb, pnb)
-            gf.check_snake_screen_collisions(snake, sb)
             clock.tick(gs.game_speed)
             pygame.display.flip()
         if gs.game_running and gs.game_paused:

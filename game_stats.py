@@ -64,7 +64,7 @@ class Scoreboard:
         if len(pnb.player_name_list) == 0:
             score_msg = f"NoName's Score: {self.score}"
         else:
-            score_msg = f"{pnb.player_name_list[0]}'s Score: {self.score}"
+            score_msg = f"{pnb.player_name_list[0].title()}'s Score: {self.score}"
         score_img = score_msg_font.render(score_msg, True, "BLUE")
         # Draw everything to the screen.
         pygame.draw.rect(self.screen, self.score_color, self.rect_background)
