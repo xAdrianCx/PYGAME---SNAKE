@@ -54,12 +54,15 @@ class Scoreboard:
         self.high_score_name = max(data, key=data.get)
         self.highest_score = max(data.values())
         # Create the lives.
-        self.snake_lives = pygame.Rect(0, 0, self.gs.snake_head, self.gs.snake_head)
+        self.snake_lives = pygame.Rect(0, 10, self.gs.snake_head, self.gs.snake_head)
         self.snake_lives_color = self.gs.snake_color
         self.snake_lives.right = self.screen_rect.right - 110
         self.snake_live_list = []
+        x = self.screen_rect.right - 110
+        y = 10
         for i in range(self.gs.snake_lives):
-            self.snake_live_list.append(self.snake_lives.copy())
+            self.snake_live_list.append(pygame.Rect(x, y, self.gs.snake_head, self.gs.snake_head))
+            x += 30
 
     def draw_stats(self, pnb):
         """ Draw the score to the screen.

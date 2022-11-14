@@ -43,12 +43,13 @@ def run_game():
         if gs.game_running and not gs.game_paused:
             screen.fill(gs.bg_color)
             gf.check_key_pressed(gs, screen, snake, pnb)
-            sb.draw_stats(pnb)
             bait.draw_bait()
             snake.draw_snake()
-            gf.check_snake_screen_collisions(snake, sb)
+            gf.check_snake_screen_collisions(gs, snake, sb)
             snake.update()
             gf.update_snake_length(gs, snake, bait, sb, pnb)
+            sb.draw_stats(pnb)
+            print(gs.snake_lives)
             clock.tick(gs.game_speed)
             pygame.display.flip()
         if gs.game_running and gs.game_paused:
