@@ -26,9 +26,7 @@ class Snake:
             self.rect.left -= self.gs.snake_speed
         if self.key_pressed == pygame.K_RIGHT:
             self.rect.right += self.gs.snake_speed
-        # Update snake length.
-        self.gs.snake_body.append(self.rect.copy())
-        self.gs.snake_body = self.gs.snake_body[-self.gs.snake_length:]
+
 
     def reset(self):
         """ Position the snake in the middle of the screen after it hits an edge.
@@ -38,4 +36,7 @@ class Snake:
 
     def draw_snake(self):
         """ Draws the snake on the screen"""
+        # Update snake length and draw it to the screen.
+        self.gs.snake_body.append(self.rect.copy())
+        self.gs.snake_body = self.gs.snake_body[-self.gs.snake_length:]
         [pygame.draw.rect(self.screen, self.gs.snake_color, block) for block in self.gs.snake_body]
