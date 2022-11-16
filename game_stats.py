@@ -53,16 +53,6 @@ class Scoreboard:
             data = json.load(data_file)
         self.high_score_name = max(data, key=data.get)
         self.highest_score = max(data.values())
-        # Create the lives.
-        self.snake_lives = pygame.Rect(0, 10, self.gs.snake_head, self.gs.snake_head)
-        self.snake_lives_color = self.gs.snake_color
-        self.snake_lives.right = self.screen_rect.right - 110
-        self.snake_live_list = []
-        x = self.screen_rect.right - 110
-        y = 10
-        for i in range(self.gs.snake_lives):
-            self.snake_live_list.append(pygame.Rect(x, y, self.gs.snake_head, self.gs.snake_head))
-            x += 30
 
     def draw_stats(self, pnb):
         """ Draw the score to the screen.
@@ -78,8 +68,18 @@ class Scoreboard:
         else:
             score_msg = f"{pnb.player_name_list[0].title()}'s Score: {self.score}"
         score_img = score_msg_font.render(score_msg, True, "BLUE")
+        # Create the lives.
+        snake_lives = pygame.Rect(0, 10, self.gs.snake_head, self.gs.snake_head)
+        snake_lives_color = self.gs.snake_color
+        snake_lives.right = self.screen_rect.right - 110
+        snake_live_list = []
+        x = self.screen_rect.right - 110
+        y = 10
+        for i in range(self.gs.snake_lives):
+            snake_live_list.append(pygame.Rect(x, y, self.gs.snake_head, self.gs.snake_head))
+            x += 30
         # Draw everything to the screen.
         pygame.draw.rect(self.screen, self.score_color, self.rect_background)
-        [pygame.draw.rect(self.screen, self.snake_lives_color, life) for life in self.snake_live_list]
+        [pygame.draw.rect(self.screen, snake_lives_color, life) for life in snake_live_list]
         self.screen.blit(score_img, (10, 5))
         self.screen.blit(high_score_img, ((self.screen_rect.right // 2) - 200, 5))
