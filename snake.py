@@ -27,16 +27,18 @@ class Snake:
         if self.key_pressed == pygame.K_RIGHT:
             self.rect.right += self.gs.snake_speed
 
-
     def reset(self):
         """ Position the snake in the middle of the screen after it hits an edge.
         Also decrease lives left."""
-        self.rect.center = (self.screen_rect.centerx - (self.gs.snake_head / 2), self.screen_rect.centery)
-        self.key_pressed = None
-        temp_snake_body = self.gs.snake_body
-        self.gs.snake_body.clear()
-
-
+        if self.gs.snake_lives > 0:
+            self.rect.center = (self.screen_rect.centerx - (self.gs.snake_head / 2), self.screen_rect.centery)
+            self.key_pressed = None
+            self.gs.snake_body.clear()
+        elif self.gs.snake_lives < 0:
+            game_over_font = pygame.font.SysFont("Comic Sans", 50)
+            game_over_msg = "Game Over!"
+            game_over_img = game_over_font.render(game_over_msg, True, "RED")
+            self.screen.blit(game_over_img, ((self.gs.screen_width // 3), (self.gs.screen_height // 2)))
 
     def draw_snake(self):
         """ Draws the snake on the screen"""

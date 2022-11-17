@@ -17,7 +17,7 @@ def check_key_pressed(gs, screen, snake, pnb):
                 snake.key_pressed = pygame.K_LEFT
             if event.key == pygame.K_RIGHT:
                 snake.key_pressed = pygame.K_RIGHT
-            if event.key == pygame.K_p:
+            if event.key == pygame.K_p or event.key == pygame.K_ESCAPE:
                 gs.game_paused = not gs.game_paused
                 pause_msg_font = pygame.font.SysFont("Comic Sans", 50)
                 pause_msg = "Game Paused..."
