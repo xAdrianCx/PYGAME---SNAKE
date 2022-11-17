@@ -37,10 +37,10 @@ def run_game():
 
     # Main loop.
     while True:
-        if not gs.game_running and not gs.game_paused:
+        if not gs.game_running and not gs.game_paused and not gs.game_over:
             gf.check_key_pressed(gs, screen, snake, pnb)
             gf.ask_for_username(gs, screen, pnb)
-        if gs.game_running and not gs.game_paused:
+        if gs.game_running and not gs.game_paused and not gs.game_over:
             screen.fill(gs.bg_color)
             bait.draw_bait()
             snake.draw_snake()
@@ -53,6 +53,10 @@ def run_game():
             pygame.display.flip()
         if gs.game_running and gs.game_paused:
             gf.check_key_pressed(gs, screen, snake, pnb)
+        if gs.game_over:
+            gf.check_key_pressed(gs, screen, snake, pnb)
+            gf.game_over(gs, screen)
+            pygame.display.flip()
 
 
 run_game()

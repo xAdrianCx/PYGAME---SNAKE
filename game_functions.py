@@ -17,7 +17,7 @@ def check_key_pressed(gs, screen, snake, pnb):
                 snake.key_pressed = pygame.K_LEFT
             if event.key == pygame.K_RIGHT:
                 snake.key_pressed = pygame.K_RIGHT
-            if event.key == pygame.K_p or event.key == pygame.K_ESCAPE:
+            if event.key == pygame.K_ESCAPE:
                 gs.game_paused = not gs.game_paused
                 pause_msg_font = pygame.font.SysFont("Comic Sans", 50)
                 pause_msg = "Game Paused..."
@@ -89,6 +89,14 @@ def update_snake_length(gs, snake, bait, sb, pnb):
                 sb.high_score_name = name
                 sb.highest_score = high_score
         bait.update(sb)
+
+
+def game_over(gs, screen):
+    """ A function that ends the game."""
+    game_over_font = pygame.font.SysFont("Comic Sans", 50)
+    game_over_msg = "Game Over!"
+    game_over_img = game_over_font.render(game_over_msg, True, "RED")
+    screen.blit(game_over_img, ((gs.screen_width // 3), (gs.screen_height // 2)))
 
 
 def ask_for_username(gs, screen, pnb):

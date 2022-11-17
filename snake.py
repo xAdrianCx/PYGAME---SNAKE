@@ -35,10 +35,8 @@ class Snake:
             self.key_pressed = None
             self.gs.snake_body.clear()
         elif self.gs.snake_lives < 0:
-            game_over_font = pygame.font.SysFont("Comic Sans", 50)
-            game_over_msg = "Game Over!"
-            game_over_img = game_over_font.render(game_over_msg, True, "RED")
-            self.screen.blit(game_over_img, ((self.gs.screen_width // 3), (self.gs.screen_height // 2)))
+            self.gs.game_over = True
+
 
     def draw_snake(self):
         """ Draws the snake on the screen"""

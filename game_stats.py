@@ -72,14 +72,14 @@ class Scoreboard:
         snake_lives = pygame.Rect(0, 10, self.gs.snake_head, self.gs.snake_head)
         snake_lives_color = self.gs.snake_color
         snake_lives.right = self.screen_rect.right - 110
-        snake_live_list = []
+        snake_lives_list = []
         x = self.screen_rect.right - 110
         y = 10
         for i in range(self.gs.snake_lives):
-            snake_live_list.append(pygame.Rect(x, y, self.gs.snake_head, self.gs.snake_head))
+            snake_lives_list.append(pygame.Rect(x, y, self.gs.snake_head, self.gs.snake_head))
             x += 30
         # Draw everything to the screen.
         pygame.draw.rect(self.screen, self.score_color, self.rect_background)
-        [pygame.draw.rect(self.screen, snake_lives_color, life) for life in snake_live_list]
+        [pygame.draw.rect(self.screen, snake_lives_color, life) for life in snake_lives_list]
         self.screen.blit(score_img, (10, 5))
         self.screen.blit(high_score_img, ((self.screen_rect.right // 2) - 200, 5))

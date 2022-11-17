@@ -24,3 +24,4 @@ class GameSettings:
     game_speed = 20
     game_paused = False
     game_running = False
+    game_over = False
