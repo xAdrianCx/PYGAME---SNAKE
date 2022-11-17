@@ -23,9 +23,6 @@ def run_game():
     pygame.display.set_caption("Snake Game")
     screen.fill(gs.bg_color)
 
-    # Instantiate the snake.
-    snake = Snake(gs, screen)
-
     # Initialize a player name box.
     pnb = PlayerNameBox(screen)
 
@@ -34,6 +31,9 @@ def run_game():
 
     # Instantiate the bait.
     bait = Bait(gs, screen, sb)
+
+    # Instantiate the snake.
+    snake = Snake(gs, screen)
 
     # Main loop.
     while True:

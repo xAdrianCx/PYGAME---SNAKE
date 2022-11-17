@@ -33,6 +33,10 @@ class Snake:
         Also decrease lives left."""
         self.rect.center = (self.screen_rect.centerx - (self.gs.snake_head / 2), self.screen_rect.centery)
         self.key_pressed = None
+        temp_snake_body = self.gs.snake_body
+        self.gs.snake_body.clear()
+
+
 
     def draw_snake(self):
         """ Draws the snake on the screen"""

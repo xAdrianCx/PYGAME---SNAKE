@@ -55,17 +55,17 @@ def update_snake_length(gs, snake, bait, sb, pnb):
         gs.snake_length += 1
         # Increase the score.
         sb.score += 50
-        if gs.snake_length > 10:
+        if gs.snake_length >= 10 and gs.snake_length < 20:
             sb.score += 100
-        elif gs.snake_length > 20:
+        elif gs.snake_length >= 20 and gs.snake_length < 30:
             sb.score += 200
-        elif gs.snake_length > 30:
+        elif gs.snake_length >= 30 and gs.snake_length < 40:
             sb.score += 300
-        elif gs.snake_length > 40:
+        elif gs.snake_length >= 40 and gs.snake_length < 50:
             sb.score += 400
-        elif gs.snake_length > 50:
+        elif gs.snake_length >= 50 and gs.snake_length < 60:
             sb.score += 500
-        elif gs.snake_length > 60:
+        elif gs.snake_length >= 60 and gs.snake_length < 70:
             sb.score += 1000
 
         # Increase game speed.
