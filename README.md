@@ -14,4 +14,5 @@ HOW TO USE:
 6. Your score is on top left corner
 7. Remaining lives are on top right corner
 8. All scores are kept into the database.
-9. Go break those great highscores!
+9. Hit ESC to pause the game
+10. Go break those great highscores!
