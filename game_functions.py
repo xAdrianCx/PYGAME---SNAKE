@@ -9,7 +9,7 @@ def check_key_pressed(gs, screen, snake, pnb, sb):
     """ Check which key was pressed."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            pygame.quit()
+            sys.exit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP:
                 snake.key_pressed = pygame.K_UP
