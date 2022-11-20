@@ -31,6 +31,9 @@ def check_key_pressed(gs, screen, snake, pnb, sb):
             if event.key == pygame.K_SPACE:
                 if gs.game_over:
                     sb.reset_stats()
+                    gs.game_running = True
+                    gs.game_over = False
+                    gs.game_paused = False
 
             if event.key == pygame.K_RETURN:
                 pnb.player_name_list.append(pnb.player_name)
@@ -40,26 +43,25 @@ def check_key_pressed(gs, screen, snake, pnb, sb):
                 pnb.player_name += event.unicode
 
 
-def check_snake_screen_collisions(gs, snake, sb):
+def check_snake_screen_collisions(gs, screen, snake, sb):
     """ A function that detects snake-screen borders collisions."""
     if snake.rect.top < sb.rect_background.bottom:
         snake.reset()
-        gs.snake_lives -= 1
     if snake.rect.bottom > snake.screen_rect.bottom:
         snake.reset()
-        gs.snake_lives -= 1
     if snake.rect.right > snake.screen_rect.right:
         snake.reset()
-        gs.snake_lives -= 1
     if snake.rect.left < snake.screen_rect.left:
         snake.reset()
-        gs.snake_lives -= 1
+    if gs.snake_lives < 0:
+        game_over(gs, screen)
 
 
 def update_snake_length(gs, snake, bait, sb, pnb):
     """ A function that detects collisions.
     Updates the length of snake and creates a new bait at a random position."""
     if snake.rect.colliderect(bait.rect):
+        bait.update(sb)
         gs.snake_length += 1
         # Increase the score.
         sb.score += 50
@@ -73,12 +75,13 @@ def update_snake_length(gs, snake, bait, sb, pnb):
             sb.score += 400
         elif gs.snake_length >= 50 and gs.snake_length < 60:
             sb.score += 500
-        elif gs.snake_length >= 60 and gs.snake_length < 70:
+        elif gs.snake_length >= 60:
             sb.score += 1000
 
         # Increase game speed.
         if gs.snake_length % 5 == 0:
-            gs.game_speed += 1
+            gs.game_speed += 20
+            print(gs.game_speed)
         if sb.score > sb.highest_score:
             cwd = os.getcwd()
             os.chdir(cwd)
@@ -96,11 +99,11 @@ def update_snake_length(gs, snake, bait, sb, pnb):
                 json.dump(data, file)
                 sb.high_score_name = name
                 sb.highest_score = high_score
-        bait.update(sb)
 
 
 def game_over(gs, screen):
     """ A function that ends the game."""
+    gs.game_over = True
     game_over_font = pygame.font.SysFont("Comic Sans", 50)
     game_over_msg = "Game Over!"
     game_over_img = game_over_font.render(game_over_msg, True, "RED")
@@ -127,9 +130,8 @@ def play(gs, screen, sb, snake, bait, pnb, clock):
     sb.draw_stats(pnb)
     bait.draw_bait()
     snake.draw_snake()
-    check_snake_screen_collisions(gs, snake, sb)
+    check_snake_screen_collisions(gs, screen, snake, sb)
     snake.update()
     update_snake_length(gs, snake, bait, sb, pnb)
     clock.tick(gs.game_speed)
-    print(gs.snake_lives)
     pygame.display.flip()

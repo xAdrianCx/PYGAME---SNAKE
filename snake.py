@@ -30,15 +30,11 @@ class Snake:
     def reset(self):
         """ Position the snake in the middle of the screen after it hits an edge.
         Also decrease lives left."""
-        if self.gs.snake_lives > 0:
-            self.rect.center = (self.screen_rect.centerx - (self.gs.snake_head / 2), self.screen_rect.centery)
-            self.key_pressed = None
-            self.gs.snake_body.clear()
-        elif self.gs.snake_lives < 0:
-            self.rect.center = (self.screen_rect.centerx - (self.gs.snake_head / 2), self.screen_rect.centery)
-            self.key_pressed = None
-            self.gs.snake_body.clear()
-            self.gs.game_over = True
+        self.rect.center = (self.screen_rect.centerx - (self.gs.snake_head / 2), self.screen_rect.centery)
+        self.key_pressed = None
+        self.gs.snake_body.clear()
+        self.gs.snake_lives -= 1
+
 
     def draw_snake(self):
         """ Draws the snake on the screen"""

@@ -87,10 +87,9 @@ class Scoreboard:
 
     def reset_stats(self):
         """ Reset all stats."""
-        self.score = 0
-        self.gs.snake_lives = 3
-        self.gs.snake_body = []
-        self.gs.snake_length = 1
-        self.gs.game_running = True
-        self.gs.game_over = False
-        self.gs.game_paused = False
+        if self.gs.game_over:
+            self.score = 0
+            self.gs.snake_lives = 3
+            self.gs.snake_body = []
+            self.gs.snake_length = 1
+            self.gs.snake_speed = 20
