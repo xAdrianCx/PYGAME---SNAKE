@@ -85,10 +85,12 @@ class Scoreboard:
         self.screen.blit(score_img, (10, 5))
         self.screen.blit(high_score_img, ((self.screen_rect.right // 2) - 200, 5))
 
-
     def reset_stats(self):
         """ Reset all stats."""
+        self.score = 0
+        self.gs.snake_lives = 3
+        self.gs.snake_body = []
+        self.gs.snake_length = 1
         self.gs.game_running = True
         self.gs.game_over = False
         self.gs.game_paused = False
-        self.score = 0

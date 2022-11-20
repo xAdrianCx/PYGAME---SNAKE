@@ -35,8 +35,10 @@ class Snake:
             self.key_pressed = None
             self.gs.snake_body.clear()
         elif self.gs.snake_lives < 0:
+            self.rect.center = (self.screen_rect.centerx - (self.gs.snake_head / 2), self.screen_rect.centery)
+            self.key_pressed = None
+            self.gs.snake_body.clear()
             self.gs.game_over = True
-
 
     def draw_snake(self):
         """ Draws the snake on the screen"""

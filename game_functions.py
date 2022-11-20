@@ -4,7 +4,7 @@ import sys
 import json
 
 
-def check_key_pressed(gs, screen, snake, pnb, sb, bait, clock):
+def check_key_pressed(gs, screen, snake, pnb, sb):
     """ Check which key was pressed."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -112,7 +112,6 @@ def game_over(gs, screen):
     pygame.display.flip()
 
 
-
 def ask_for_username(gs, screen, pnb):
     """ Prompt for a username to be able to track the score."""
     screen.fill(gs.bg_color)
@@ -122,16 +121,15 @@ def ask_for_username(gs, screen, pnb):
         gs.game_running = True
 
 
-def play_again(gs, screen, sb, snake, bait, pnb, clock):
+def play(gs, screen, sb, snake, bait, pnb, clock):
     screen.fill(gs.bg_color)
+    check_key_pressed(gs, screen, snake, pnb, sb)
     sb.draw_stats(pnb)
-    print(pnb.player_name_list)
     bait.draw_bait()
     snake.draw_snake()
-    check_key_pressed(gs, screen, snake, pnb, sb, bait, clock)
     check_snake_screen_collisions(gs, snake, sb)
     snake.update()
     update_snake_length(gs, snake, bait, sb, pnb)
     clock.tick(gs.game_speed)
+    print(gs.snake_lives)
     pygame.display.flip()
-
