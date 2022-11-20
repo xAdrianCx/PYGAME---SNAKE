@@ -37,27 +37,30 @@ def run_game():
 
     # Main loop.
     while True:
+
         if not gs.game_running and not gs.game_paused and not gs.game_over:
-            gf.check_key_pressed(gs, screen, snake, pnb)
+            gf.check_key_pressed(gs, screen, snake, pnb, sb, bait, clock)
             gf.ask_for_username(gs, screen, pnb)
-        if gs.game_running and not gs.game_paused and not gs.game_over:
+        elif gs.game_running and not gs.game_paused and not gs.game_over:
             screen.fill(gs.bg_color)
             sb.draw_stats(pnb)
-            print(pnb.player_name_list)
-            bait.draw_bait()
+            print(f"game_running: {gs.game_running}")
+            print(f"game_paused: {gs.game_paused}")
+            print(f"game_over: {gs.game_over}")
             snake.draw_snake()
-            gf.check_key_pressed(gs, screen, snake, pnb)
-            gf.check_snake_screen_collisions(gs, snake, sb)
+            bait.draw_bait()
+            gf.check_key_pressed(gs, screen, snake, pnb, sb, bait, clock)
             snake.update()
+            gf.check_snake_screen_collisions(gs, snake, sb)
             gf.update_snake_length(gs, snake, bait, sb, pnb)
             clock.tick(gs.game_speed)
             pygame.display.flip()
-        if gs.game_running and gs.game_paused:
-            gf.check_key_pressed(gs, screen, snake, pnb)
-        if gs.game_over:
-            gf.check_key_pressed(gs, screen, snake, pnb)
+        elif gs.game_running and gs.game_paused:
+            gf.check_key_pressed(gs, screen, snake, pnb, sb, bait, clock)
+        elif gs.game_over:
             gf.game_over(gs, screen)
-            pygame.display.flip()
+            gf.check_key_pressed(gs, screen, snake, pnb, sb, bait, clock)
+
 
 
 run_game()

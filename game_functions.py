@@ -1,9 +1,10 @@
 import pygame
 import os
+import sys
 import json
 
 
-def check_key_pressed(gs, screen, snake, pnb):
+def check_key_pressed(gs, screen, snake, pnb, sb, bait, clock):
     """ Check which key was pressed."""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -24,6 +25,13 @@ def check_key_pressed(gs, screen, snake, pnb):
                     pause_msg = "Game Paused..."
                     pause_msg_img = pause_msg_font.render(pause_msg, True, "RED")
                     screen.blit(pause_msg_img, ((gs.screen_width // 3), (gs.screen_height // 2)))
+                elif gs.game_over or (not gs.game_running and not gs.game_paused):
+                    sys.exit()
+
+            if event.key == pygame.K_SPACE:
+                if gs.game_over:
+                    sb.reset_stats()
+
             if event.key == pygame.K_RETURN:
                 pnb.player_name_list.append(pnb.player_name)
             if event.key == pygame.K_BACKSPACE:
@@ -96,7 +104,13 @@ def game_over(gs, screen):
     game_over_font = pygame.font.SysFont("Comic Sans", 50)
     game_over_msg = "Game Over!"
     game_over_img = game_over_font.render(game_over_msg, True, "RED")
+    ask_play_again_font = pygame.font.SysFont("Comic Sans", 25)
+    ask_play_again_msg = "Hit SPACE to start over or ESC to quit the game."
+    ask_play_again_img = ask_play_again_font.render(ask_play_again_msg, True, "RED")
     screen.blit(game_over_img, ((gs.screen_width // 3), (gs.screen_height // 2)))
+    screen.blit(ask_play_again_img, (((gs.screen_width // 2) // 2), ((gs.screen_height // 2) + 60)))
+    pygame.display.flip()
+
 
 
 def ask_for_username(gs, screen, pnb):
@@ -106,3 +120,18 @@ def ask_for_username(gs, screen, pnb):
     pygame.display.flip()
     if len(pnb.player_name_list) > 0:
         gs.game_running = True
+
+
+def play_again(gs, screen, sb, snake, bait, pnb, clock):
+    screen.fill(gs.bg_color)
+    sb.draw_stats(pnb)
+    print(pnb.player_name_list)
+    bait.draw_bait()
+    snake.draw_snake()
+    check_key_pressed(gs, screen, snake, pnb, sb, bait, clock)
+    check_snake_screen_collisions(gs, snake, sb)
+    snake.update()
+    update_snake_length(gs, snake, bait, sb, pnb)
+    clock.tick(gs.game_speed)
+    pygame.display.flip()
+

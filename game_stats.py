@@ -84,3 +84,11 @@ class Scoreboard:
         [pygame.draw.rect(self.screen, snake_lives_color, life) for life in snake_lives_list]
         self.screen.blit(score_img, (10, 5))
         self.screen.blit(high_score_img, ((self.screen_rect.right // 2) - 200, 5))
+
+
+    def reset_stats(self):
+        """ Reset all stats."""
+        self.gs.game_running = True
+        self.gs.game_over = False
+        self.gs.game_paused = False
+        self.score = 0
