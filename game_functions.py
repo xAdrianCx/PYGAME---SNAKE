@@ -18,14 +18,14 @@ def check_key_pressed(gs, screen, snake, pnb):
             if event.key == pygame.K_RIGHT:
                 snake.key_pressed = pygame.K_RIGHT
             if event.key == pygame.K_ESCAPE:
-                gs.game_paused = not gs.game_paused
-                pause_msg_font = pygame.font.SysFont("Comic Sans", 50)
-                pause_msg = "Game Paused..."
-                pause_msg_img = pause_msg_font.render(pause_msg, True, "RED")
-                screen.blit(pause_msg_img, ((gs.screen_width // 3), (gs.screen_height // 2)))
+                if not gs.game_over and gs.game_running:
+                    gs.game_paused = not gs.game_paused
+                    pause_msg_font = pygame.font.SysFont("Comic Sans", 50)
+                    pause_msg = "Game Paused..."
+                    pause_msg_img = pause_msg_font.render(pause_msg, True, "RED")
+                    screen.blit(pause_msg_img, ((gs.screen_width // 3), (gs.screen_height // 2)))
             if event.key == pygame.K_RETURN:
                 pnb.player_name_list.append(pnb.player_name)
-                pnb.player_name = ""
             if event.key == pygame.K_BACKSPACE:
                 pnb.player_name = pnb.player_name[:-1]
             else:
