@@ -2,6 +2,7 @@ import pygame
 import os
 import sys
 import json
+import time
 
 
 def check_key_pressed(gs, screen, snake, pnb, sb):
@@ -23,7 +24,7 @@ def check_key_pressed(gs, screen, snake, pnb, sb):
                     gs.game_paused = not gs.game_paused
                     pause_msg_font = pygame.font.SysFont("Comic Sans", 50)
                     pause_msg = "Game Paused..."
-                    pause_msg_img = pause_msg_font.render(pause_msg, True, "RED")
+                    pause_msg_img = pause_msg_font.render(pause_msg, True, "BLACK")
                     screen.blit(pause_msg_img, ((gs.screen_width // 3), (gs.screen_height // 2)))
                 elif gs.game_over or (not gs.game_running and not gs.game_paused):
                     sys.exit()
@@ -47,12 +48,16 @@ def check_snake_screen_collisions(gs, screen, snake, sb):
     """ A function that detects snake-screen borders collisions."""
     if snake.rect.top < sb.rect_background.bottom:
         snake.reset()
+        time.sleep(1)
     if snake.rect.bottom > snake.screen_rect.bottom:
         snake.reset()
+        time.sleep(1)
     if snake.rect.right > snake.screen_rect.right:
         snake.reset()
+        time.sleep(1)
     if snake.rect.left < snake.screen_rect.left:
         snake.reset()
+        time.sleep(1)
     if gs.snake_lives < 0:
         game_over(gs, screen)
 
@@ -105,10 +110,10 @@ def game_over(gs, screen):
     gs.game_over = True
     game_over_font = pygame.font.SysFont("Comic Sans", 50)
     game_over_msg = "Game Over!"
-    game_over_img = game_over_font.render(game_over_msg, True, "RED")
+    game_over_img = game_over_font.render(game_over_msg, True, "BLACK")
     ask_play_again_font = pygame.font.SysFont("Comic Sans", 25)
     ask_play_again_msg = "Hit SPACE to start over or ESC to quit the game."
-    ask_play_again_img = ask_play_again_font.render(ask_play_again_msg, True, "RED")
+    ask_play_again_img = ask_play_again_font.render(ask_play_again_msg, True, "BLACK")
     screen.blit(game_over_img, ((gs.screen_width // 3), (gs.screen_height // 2)))
     screen.blit(ask_play_again_img, (((gs.screen_width // 2) // 2), ((gs.screen_height // 2) + 60)))
     pygame.display.flip()
