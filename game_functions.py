@@ -80,8 +80,7 @@ def update_snake_length(gs, snake, bait, sb, pnb):
 
         # Increase game speed.
         if gs.snake_length % 5 == 0:
-            gs.game_speed += 20
-            print(gs.game_speed)
+            gs.game_speed += 1
         if sb.score > sb.highest_score:
             cwd = os.getcwd()
             os.chdir(cwd)

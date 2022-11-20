@@ -92,4 +92,4 @@ class Scoreboard:
             self.gs.snake_lives = 3
             self.gs.snake_body = []
             self.gs.snake_length = 1
-            self.gs.snake_speed = 20
+            self.gs.game_speed = 20
